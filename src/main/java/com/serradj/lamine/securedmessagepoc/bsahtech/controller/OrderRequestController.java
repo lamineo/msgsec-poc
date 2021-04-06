@@ -59,11 +59,11 @@ public class OrderRequestController {
 
         log.info("[ORDER-REQUEST] - retrieveUserOrders  ={}", userId);
 
-        return (ResponseEntity<ApiResponse<List<OrderRequestEntity>>>) Try.of(() -> userRepo.findById(userId))
+        return Try.of(() -> userRepo.findById(userId))
                 .map(user -> {
-                    if (!user.isPresent()) {
-                        return ApiResponse.badRequest( null, "User not found");
-                    }
+//                    if (user.isEmpty()) {
+//                        return ApiResponse.ok( new ArrayList<OrderRequestEntity>());
+//                    }
                     return ApiResponse.ok(user.get().getOrderRequestEntities());
                 })
 //                .get();
